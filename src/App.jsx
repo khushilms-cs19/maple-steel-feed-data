@@ -59,7 +59,7 @@ function App() {
       <input type="text" placeholder="name" value={name} onChange={(e) => setName(e.target.value)} />
       <input type="text" placeholder="gauges" value={gauges} onChange={(e) => setGauges(e.target.value.split(','))} />
       <input type="text" placeholder="price" value={price} onChange={(e) => setPrice(e.target.value)} />
-      <select onChange={(e) => setSelectedCategory(e.target.value)}>
+      <select onChange={(e) => setSelectedCategory(e.target.value)} value={selectedCategory}>
         {
           !selectedCategory && <option>Select One Category</option> 
         }
