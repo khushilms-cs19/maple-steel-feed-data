@@ -5,7 +5,7 @@ import axios from 'axios';
 
 function App() {
   const [name, setName] = useState('')
-  const [guages, setGuages] = useState([14,16,18,20])
+  const [gauges, setGauges] = useState([14,16,18,20])
   const [image, setImage] = useState('')
   const [price, setPrice] = useState('')
   // const [categoryId, setCategoryId] = useState('')
@@ -20,10 +20,10 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if(!name || !guages || !selectedCategory ) return alert('Please fill all the fields');
+    if(!name || !gauges || !selectedCategory ) return alert('Please fill all the fields');
     const data = {
       name,
-      guages,
+      gauges,
       image,
       price,
       categoryId: selectedCategory,
@@ -36,7 +36,7 @@ function App() {
       data
     }).then(()=>setSuccess("product uploaded")).catch(err => setError(err.response.data.message))
     setName('')
-    setGuages([14,16,18,20])
+    setGauges([14,16,18,20])
     setImage('')
     setPrice('')
     setSelectedCategory('')
@@ -57,7 +57,7 @@ function App() {
   return (
     <div style={{display: "flex", flexDirection: "column", gap: "10px"}}>
       <input type="text" placeholder="name" value={name} onChange={(e) => setName(e.target.value)} />
-      <input type="text" placeholder="guages" value={guages} onChange={(e) => setGuages(e.target.value.split(','))} />
+      <input type="text" placeholder="gauges" value={gauges} onChange={(e) => setGauges(e.target.value.split(','))} />
       <input type="text" placeholder="price" value={price} onChange={(e) => setPrice(e.target.value)} />
       <select onChange={(e) => setSelectedCategory(e.target.value)}>
         {
