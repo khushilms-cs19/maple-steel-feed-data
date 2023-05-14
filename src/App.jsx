@@ -15,6 +15,7 @@ function App() {
   const [listingData, setListingData] = useState({})
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [categoryProducts, setCategoryProducts] = useState([])
 
 
 
@@ -39,9 +40,19 @@ function App() {
     setGauges([14,16,18,20])
     setImage('')
     setPrice('')
-    setSelectedCategory('')
+    // setSelectedCategory('')
     setDescription('')
     setListingData({})
+  }
+
+  const getCategoryProducts = async (id) => {
+    await axios({
+      method: 'get',
+      url: `http://localhost:3000/products`,
+      params: {
+        category: id
+      }
+    }).then(res => setCategoryProducts(res.data)).catch(err => console.log(err))
   }
 
   useEffect(() => {
@@ -54,7 +65,14 @@ function App() {
     setImage(listingData.selectedFile)
   }, [listingData])
 
+  useEffect(() => {
+    if(selectedCategory) {
+      getCategoryProducts(selectedCategory)
+    }
+  }, [selectedCategory])
+
   return (
+    <div style={{display: "flex", justifyContent: "space-around", width: "100vw"}}>
     <div style={{display: "flex", flexDirection: "column", gap: "10px"}}>
       <input type="text" placeholder="name" value={name} onChange={(e) => setName(e.target.value)} />
       <input type="text" placeholder="gauges" value={gauges} onChange={(e) => setGauges(e.target.value.split(','))} />
@@ -80,6 +98,15 @@ function App() {
       <p style={{color: "green"}}>{success}</p>
       }
     </div>
+    <div>
+      {
+        categoryProducts.map((product, index) => (
+            <p key={index} style={{fontSize: "10px", padding: 0, margin: 0}}>{product.name}</p>
+        ))
+      }
+    </div>
+    </div>
+
   )
 }
 
